@@ -1,0 +1,52 @@
+<div class="row marketing">
+  <form class="form-horizontal">
+    <fieldset>
+      <!-- Form Name -->
+      <legend>Form Name</legend>
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textinput">Query:</label>
+        <div class="col-md-4">
+          <input id="textinput" name="textinput" ng-model="form.search" type="text" placeholder="" class="form-control input-md">
+        </div>
+      </div>
+      <!-- Button -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for=""></label>
+        <div class="col-md-4">
+          <button id="" name="" class="btn btn-primary" ng-click="searchCrykit()">Search</button>
+          <button id="" name="" class="btn btn-primary" ng-click="upgradeData()">Upgrade data</button>
+          <button id="" name="" class="btn btn-primary" ng-click="getSetAttrStats()">Get set stats</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+  <table class="table table-stripped">
+    <thead>
+      <tr>
+        <th><a ng-click="sort('id')">Id</a></th>
+        <th><a ng-click="sort('current_price')">Price</a></th>
+        <th><a ng-click="sort('start_price')">Start Price</a></th>
+        <th><a ng-click="sort('end_price')">End Price</a></th>
+        <th><a ng-click="sort('start_time')">Start Time</a></th>
+        <th><a ng-click="sort('end_time')">End Time</a></th>
+        <th><a ng-click="sort('end_timer')">Ends In</a></th>
+        <th><a ng-click="sort('duration')">Duration</a></th>
+        <th><a ng-click="sort('cooldown_index')">Cooldown</a></th>
+      </tr>
+    </thead>
+    <tbody>
+    	<tr ng-repeat="kit in auctionData" ng-cloak>
+    		<td><a href="{{'https://www.cryptokitties.co/kitty/' + kit.id}}" target="_blank">{{kit.id}}</a></td>
+    		<td>{{kit.current_price}}</td>
+    		<td>{{kit.start_price}}</td>
+    		<td>{{kit.end_price}}</td>
+    		<td>{{kit.start_time_f}}</td>
+    		<td>{{kit.end_time_f}}</td>
+    		<td>{{kit.end_timer_f}}({{kit.end_timer}})</td>
+    		<td>{{kit.duration_f}}</td>
+    		<td>{{cooldown[kit.cooldown_index]}}({{kit.cooldown_index}})</td>
+    	</tr>
+    </tbody>
+  </table>
+</div>
