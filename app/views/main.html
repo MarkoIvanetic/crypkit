@@ -32,6 +32,7 @@
         <th><a ng-click="sort('end_time')">End Time</a></th>
         <th><a ng-click="sort('end_timer')">Ends In</a></th>
         <th><a ng-click="sort('duration')">Duration</a></th>
+        <th><a ng-click="sort('score')">Score</a></th>
         <th><a ng-click="sort('cooldown_index')">Cooldown</a></th>
       </tr>
     </thead>
@@ -44,7 +45,8 @@
     		<td>{{kit.start_time_f}}</td>
     		<td>{{kit.end_time_f}}</td>
     		<td>{{kit.end_timer_f}}({{kit.end_timer}})</td>
-    		<td>{{kit.duration_f}}</td>
+        <td>{{kit.duration_f}}</td>
+    		<td ng-click="showScore(kit.cattributes)">{{kit.score || 'N/A'}}</td>
     		<td>{{cooldown[kit.cooldown_index]}}({{kit.cooldown_index}})</td>
     	</tr>
     </tbody>

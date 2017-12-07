@@ -15,7 +15,23 @@ angular.module('crypkitApp')
     $scope.form.search = '';
 
     $scope.cooldown = ["Fast", "Swift", "Snappy", "Brisk", "Plodding", "Slow", "Sluggish", "Catatonic"];
-
+    $scope.rarity = {"kittencream":5.34,"chestnut":1.34,"soserious":2.63,"thicccbrowz":3.15,"royalpurple":1.87,"himalayan":2.98,"totesbasic":6.46,"aquamarine":2.42,"ragamuffin":2.79,"raisedbrow":2.77,"lemonade":2.22,"pouty":3.18,"greymatter":2.6,"topaz":2.09,"strawberry":2.69,"shadowgrey":1.83,"luckystripe":4.06,"tongue":1.44,"granitegrey":5.83,"barkbrown":1.05,"orangesoda":2.22,"crazy":3.67,"tigerpunk":0.73,"salmon":1.97,"coffee":1.71,"sizzurp":3,"bubblegum":0.55,"munchkin":2.44,"spock":0.42,"skyblue":0.72,"mauveover":0.84,"simple":2.52,"laperm":1,"beard":0.9,"swampgreen":2.15,"happygokitty":2.67,"chocolate":2.35,"mintgreen":2.08,"saycheese":1.38,"sphynx":2.4,"limegreen":0.75,"calicool":0.83,"cymric":0.9,"peach":0.15,"cloudwhite":0.62,"otaku":0.36,"emeraldgreen":0.7,"bloodred":0.48,"dali":0.31,"scarlet":0.41,"cerulian":0.03,"fabulous":0.03};
+    $scope.calcScore = function (arr) {
+      var a = 0;
+      arr.forEach(function(b){
+        a+=$scope.rarity[b];
+      });
+      return a;
+    };
+    $scope.showScore = function (cattributes) {
+      console.log("****************************");
+      cattributes.forEach(function (a) {
+        console.log(a + ": ", $scope.rarity[a]);
+      });
+      console.log("****************************");
+      console.log($scope.calcScore(cattributes));
+      console.log("****************************");
+    }
     $scope.getData = function(link) {
       var deferred = $q.defer();
       $http({
@@ -45,7 +61,8 @@ angular.module('crypkitApp')
         method: 'GET',
         url: "https://api.cryptokitties.co/kitties/" + kit.id
       }).then(function successCallback(response) {
-        kit.cattributes = response.data.cattributes;
+        kit.cattributes = _.pluck(response.data.cattributes, 'description');
+        kit.score = $scope.calcScore(kit.cattributes);
         // kit.matron = response.data.matron;
         deferred.resolve();
       });
@@ -139,6 +156,7 @@ angular.module('crypkitApp')
     $scope.getSetAttrStats = function() {
       var attr = {};
       $scope.auctionData.forEach(function(kit) {
+        kit.cattributes = kit.cattributes || [];
         kit.cattributes.forEach(function(a) {
           if (!attr[a]) { attr[a] = 1 } else { attr[a] = attr[a] + 1 }
         });
