@@ -27,7 +27,7 @@ angular.module('crypkitApp')
             arr.forEach(function(b) {
                 a += $scope.rarity[b];
             });
-            return a;
+            return a / 10;
         };
         $scope.showScore = function(cattributes) {
             console.log("****************************");
@@ -94,6 +94,7 @@ angular.module('crypkitApp')
                 .then(function(response) {
                     var linkArr = [];
                     var total = $scope.total = Math.ceil(response.data.total / 100);
+                    $scope.loaded = 0;
                     console.log("Total:", response.data.total);
 
                     var i = 0;
@@ -114,7 +115,7 @@ angular.module('crypkitApp')
                     });
                     $scope.dataPromiseChain.finally(function() {
                         console.log("Post processing");
-                        $scope.loaded = 0;
+                        
                         console.log($scope.auctionData);
                     });
 
