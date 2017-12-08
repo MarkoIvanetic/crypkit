@@ -21,7 +21,7 @@ angular.module('crypkitApp')
         $scope.loaded = 0;
 
         $scope.cooldown = ["Fast", "Swift", "Swift", "Snappy", "Snappy", "Brisk", "Brisk", "Plodding", "Plodding", "Slow", "Slow", "Sluggish", "Sluggish"];
-        $scope.rarity = { "kittencream": 5.34, "chestnut": 1.34, "soserious": 2.63, "thicccbrowz": 3.15, "royalpurple": 1.87, "himalayan": 2.98, "totesbasic": 6.46, "aquamarine": 2.42, "ragamuffin": 2.79, "raisedbrow": 2.77, "lemonade": 2.22, "pouty": 3.18, "greymatter": 2.6, "topaz": 2.09, "strawberry": 2.69, "shadowgrey": 1.83, "luckystripe": 4.06, "tongue": 1.44, "granitegrey": 5.83, "barkbrown": 1.05, "orangesoda": 2.22, "crazy": 3.67, "tigerpunk": 0.73, "salmon": 1.97, "coffee": 1.71, "sizzurp": 3, "bubblegum": 0.55, "munchkin": 2.44, "spock": 0.42, "skyblue": 0.72, "mauveover": 0.84, "simple": 2.52, "laperm": 1, "beard": 0.9, "swampgreen": 2.15, "happygokitty": 2.67, "chocolate": 2.35, "mintgreen": 2.08, "saycheese": 1.38, "sphynx": 2.4, "limegreen": 0.75, "calicool": 0.83, "cymric": 0.9, "peach": 0.15, "cloudwhite": 0.62, "otaku": 0.36, "emeraldgreen": 0.7, "bloodred": 0.48, "dali": 0.31, "scarlet": 0.41, "cerulian": 0.03, "fabulous": 0.03 };
+        $scope.rarity = {"violet":0.013485,"googly":0.212381,"wingtips":0.355654,"mainecoon":0.406221,"jaguar":0.470273,"whixtensions":0.707937,"cerulian":0.986055,"chartreux":1.174839,"fabulous":1.977167,"peach":2.50812,"gold":2.668249,"bubblegum":4.392581,"scarlet":5.006127,"dali":5.009498,"otaku":5.011184,"bloodred":5.294359,"skyblue":6.204563,"emeraldgreen":7.074315,"spock":7.2395,"limegreen":7.585041,"tigerpunk":7.704716,"beard":8.921694,"mauveover":9.481301,"cloudwhite":9.954945,"laperm":10.022367,"calicool":10.136986,"barkbrown":10.175754,"chestnut":11.505664,"cymric":11.672535,"tongue":13.155832,"saycheese":14.22448,"coffee":17.89564,"shadowgrey":17.952949,"salmon":18.775505,"royalpurple":19.459844,"chocolate":21.293738,"mintgreen":21.731985,"swampgreen":21.801093,"topaz":22.047186,"simple":22.155062,"lemonade":22.170232,"orangesoda":22.220799,"aquamarine":22.648932,"munchkin":22.829288,"sphynx":22.83603,"raisedbrow":23.016385,"greymatter":23.973786,"happygokitty":26.845988,"strawberry":26.857787,"ragamuffin":27.471333,"soserious":27.498302,"sizzurp":28.212981,"himalayan":28.602347,"pouty":28.634372,"crazy":35.873873,"thicccbrowz":36.40314,"luckystripe":40.281624,"granitegrey":54.308893,"kittencream":55.788819,"totesbasic":59.158263};
         $scope.calcScore = function(arr) {
             var a = 0;
             arr.forEach(function(b) {
@@ -44,7 +44,7 @@ angular.module('crypkitApp')
                 method: 'GET',
                 url: link
             }).then(function successCallback(response) {
-                scope.loaded += 100;
+                $scope.loaded += 1;
                 $scope.auctionData = $scope.auctionData.concat($scope.processKittyData(response.data.auctions));
                 deferred.resolve();
             }, function errorCallback(error) {
@@ -74,6 +74,7 @@ angular.module('crypkitApp')
                 method: 'GET',
                 url: "https://api.cryptokitties.co/kitties/" + kit.id
             }).then(function successCallback(response) {
+                $scope.loaded++;
                 kit.cattributes = _.pluck(response.data.cattributes, 'description');
                 kit.score = $scope.calcScore(kit.cattributes);
                 // kit.matron = response.data.matron;
@@ -83,7 +84,7 @@ angular.module('crypkitApp')
         };
         $scope.searchCrykit = function(retry = false) {
             if (!retry) {
-                $scope.auctionData = [];
+               // $scope.auctionData = [];
             }
             var link = $scope.getLink(0, 1, $scope.form.search);
 
@@ -113,7 +114,7 @@ angular.module('crypkitApp')
                     });
                     $scope.dataPromiseChain.finally(function() {
                         console.log("Post processing");
-                        scope.loaded = 0;
+                        $scope.loaded = 0;
                         console.log($scope.auctionData);
                     });
 
