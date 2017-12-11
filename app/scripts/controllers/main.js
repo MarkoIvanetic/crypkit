@@ -70,6 +70,7 @@ angular.module('crypkitApp')
         };
         $scope.getKitty = function(kit) {
             var deferred = $q.defer();
+            if (kit.cattributes) {$scope.loaded++;deferred.resolve(); return true;}
             $http({
                 method: 'GET',
                 url: "https://api.cryptokitties.co/kitties/" + kit.id
@@ -95,7 +96,6 @@ angular.module('crypkitApp')
                     var linkArr = [];
                     var total = $scope.total = Math.ceil(response.data.total / 100);
                     $scope.loaded = 0;
-                    console.log("Total:", response.data.total);
 
                     var i = 0;
                     if (retry) {
@@ -120,12 +120,12 @@ angular.module('crypkitApp')
                     });
 
                 }, function(error) {
-                  setTimeout(function () {
-                    $scope.retry();
-                  }, 30000);
+
                 });
         };
         $scope.upgradeData = function() {
+            $scope.total = $scope.auctionData.length;
+            $scope.loaded = 0;
             var dataPromiseChain = $q.when();
             $scope.auctionData.forEach(function(kit) {
                 dataPromiseChain = dataPromiseChain.then(function() {
@@ -135,6 +135,7 @@ angular.module('crypkitApp')
             });
         }
         $scope.upgradeDataFast = function() {
+            $scope.total = $scope.auctionData.length;
             $scope.auctionData.forEach(function(kit) {
             var dataPromiseChain = $q.when();
                 dataPromiseChain = dataPromiseChain.then(function() {

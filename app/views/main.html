@@ -16,7 +16,6 @@
         <div class="col-x-10">
           <button id="" name="" class="btn btn-primary" ng-click="searchCrykit()">Search</button>
           <button id="" name="" class="btn btn-primary" ng-click="upgradeData()">Upgrade data</button>
-          <button id="" name="" class="btn btn-primary" ng-click="upgradeDataFast()">Upgrade data fast</button>
           <button id="" name="" class="btn btn-primary" ng-click="getSetAttrStats()">Get set stats</button>
           <button id="" name="" class="btn btn-warning" ng-click="auctionData = []" >Clear</button>
           <button id="" name="" class="btn btn-warning" ng-click="retry()" ng-if="lastLink">Retry</button>
@@ -29,10 +28,9 @@
       <tr>
         <th><a ng-click="sort('id')">Id</a></th>
         <th><a ng-click="sort('current_price')">Price</a></th>
+        <th><a>Generation</a></th>
         <th><a ng-click="sort('start_price')">Start Price</a></th>
         <th><a ng-click="sort('end_price')">End Price</a></th>
-        <th><a ng-click="sort('start_time')">Start Time</a></th>
-        <th><a ng-click="sort('end_time')">End Time</a></th>
         <th><a ng-click="sort('end_timer')">Ends In</a></th>
         <th><a ng-click="sort('duration')">Duration</a></th>
         <th><a ng-click="sort('score')">Score</a></th>
@@ -42,11 +40,10 @@
     <tbody>
     	<tr ng-repeat="kit in auctionData" ng-cloak>
     		<td><a href="{{'https://www.cryptokitties.co/kitty/' + kit.id}}" target="_blank">{{kit.id}}</a></td>
-    		<td>{{kit.current_price}}</td>
+        <td>{{kit.current_price}}</td>
+    		<td>{{kit.kitty.generation}}</td>
     		<td>{{kit.start_price}}</td>
     		<td>{{kit.end_price}}</td>
-    		<td>{{kit.start_time_f}}</td>
-    		<td>{{kit.end_time_f}}</td>
     		<td>{{kit.end_timer_f}}({{kit.end_timer}})</td>
         <td>{{kit.duration_f}}</td>
     		<td ng-click="showScore(kit.cattributes)">{{kit.score || 'N/A'}}</td>
